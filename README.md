@@ -82,7 +82,11 @@ Add the `activerecord-cipherstash-pg-adapter` to your Gemfile:
 gem "activerecord-cipherstash-pg-adapter"
 ```
 
-Remove the `pg` gem from your Gemfile.
+Remove (or comment out as below) the `pg` gem from your Gemfile.
+
+```
+# gem "pg", "~> 1.1"
+```
 
 Run `bundle install`.
 
@@ -188,9 +192,9 @@ This configuration is used by the CipherStash driver to transparently rewrite yo
 Our demo rails app has a schema that looks like this:
 
 ``` ruby
-class CreateUsers < ActiveRecord::Migration[7.1]
+class CreatePatients < ActiveRecord::Migration[7.1]
   def change
-    create_table :users do |t|
+    create_table :patients do |t|
       t.string :full_name
       t.string :email
       t.date :dob
@@ -216,7 +220,7 @@ This configuration file defines two types of encrypted indexes for the columns w
 Now we push this configuration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id <the client-id from above> --client-key <the client-key from above>
+stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 ### Add and apply migrations
@@ -259,13 +263,13 @@ The CipherStash driver works by rewriting your app's SQL queries to use the unde
 To set up those encrypted columns, generate another Rails migration:
 
 ``` bash
-rails generate migration AddProtectEncryptedColumnstoPatientsTable
+rails generate migration AddProtectEncryptedColumnsToPatientsTable
 ```
 
 And add the following code:
 
 ```ruby
-class AddProtectEncryptedColumnstoPatientsTable < ActiveRecord::Migration[7.0]
+class AddProtectEncryptedColumnsToPatientsTable < ActiveRecord::Migration[7.0]
   def change
     add_column :patients, :__full_name_encrypted, :text
     add_column :patients, :__full_name_match, :integer, limit: 2, array: true
@@ -372,7 +376,7 @@ The encrypted field's will be read from and written to.
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id <the client-id from previous step> --client-key <the client-key from previous step>
+stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 Open your Rails console:
