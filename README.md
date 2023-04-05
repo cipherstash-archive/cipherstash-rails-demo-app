@@ -453,12 +453,12 @@ Use the filters on the side to perform queries.
 
 ### Viewing logs of encryptions and decryptions
 
-To view the logs showing encryptions and decryptions of data, go to your workspace folder `~/.cipherstash/<your workspace id>`.
+The CipherStash driver creates a local log of encryptions and decryptions for a given workspace in `~/.cipherstash/<your workspace id>`.
 
-Run:
+To see a real time log of cryptography operations, run:
 
-```bash
-tail -F decryptions.log
+``` bash
+tail -F ~/.cipherstash/*/decryptions.log
 ```
 
 The above guide is also published in our [getting started guide](https://docs.cipherstash.com/tutorials/rails-getting-started/index.html).
