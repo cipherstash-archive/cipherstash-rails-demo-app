@@ -337,17 +337,16 @@ rails db:migrate
 
 Now we have the necessary database structure in place, it's time to encrypt your data.
 
-Fire up a rails console:
+Using bash:
 
 ```bash
-rails c
+rails cipherstash:migrate[Patient]
 ```
 
-<!-- TODO: Update docs when we have an encrypt method to call in the active-record adapator gem.  -->
-And encrypt your data:
+Using zsh:
 
-``` ruby
-Patient.find_each(:batch_size => 1000) { |p| p.update_columns(p.attributes.filter { |attr| !attr.starts_with?("__") }) }
+```zsh
+rails cipherstash:migrate\[Patient\]
 ```
 
 This will pull the unencrypted data, encrypt it, and write it back to the new columns.
@@ -403,7 +402,7 @@ Create a patient:
 Patient.create(full_name: "Grace Hopper", email: "grace@hopper.example", dob: Date.parse("9 December 1906"))
 ```
 
-In `psql`, verify that the data is encrypted;
+In `psql rails_demo`, verify that the data is encrypted;
 
 ```
 SELECT __full_name_encrypted, __full_name_match, __full_name_ore FROM patients LIMIT 5;
