@@ -62,7 +62,21 @@ Download the binary for your platform:
 - [Windows x86_64 GNU](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-pc-windows-gnu.exe)
 - [Windows x86_64 MSVC](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-pc-windows-msvc.exe)
 
-Place the binary on your `$PATH`, so you can run it.
+If you are a MacOS user, you will need to right click on the file first and select open.
+
+This will stop the file from being blocked by Gatekeeper.
+
+This is a temporary step until we can issue signed binaries.
+
+1. Update permissions to enable the file to be executed.
+
+```bash
+chmod +x /<path to downloaded file>/stash-xxx-xxxx
+```
+
+2. Rename the file to `stash`.
+
+3. Place the location of the binary on your `$PATH`, so you can run it.
 
 ### Get a CipherStash account and workspace
 
