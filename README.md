@@ -11,9 +11,15 @@ To view the the Demo app with the completed code checkout the branch `completed-
 ### Prerequisites
 
 - Ruby >= 3.1.3
-- Rails 7: Follow the rails [getting started guide](https://guides.rubyonrails.org/v5.1/getting_started.html) for installing Ruby and Rails.
+- Rails: Follow the rails [getting started guide](https://guides.rubyonrails.org/v5.1/getting_started.html) for installing Ruby and Rails.
 - [PostgreSQL](https://www.postgresql.org/download/)
-- [direnv](https://direnv.net/docs/installation.html)
+- Optional: [direnv](https://direnv.net/docs/installation.html)
+
+If you're using [asdf](https://asdf-vm.com/), we ship a `.tool-versions` you can use to set these up:
+
+``` bash
+asdf install
+```
 
 ### Get started
 
@@ -90,7 +96,7 @@ Remove (or comment out as below) the `pg` gem from your Gemfile.
 
 Run `bundle install`.
 
-And update the default adapter settings in `config/database.yml` with `cipherstash-pg`:
+And update the default adapter settings in `config/database.yml` with `postgres_cipherstash`:
 
 ``` yaml
 default: &default
@@ -177,10 +183,16 @@ export CS_CLIENT_KEY=
 export CS_CLIENT_ID=
 ```
 
-Run:
+If you are using `direnv` run:
 
 ```bash
 direnv allow
+```
+
+If you're not you can export the variables by running:
+
+```bash
+source .envrc
 ```
 
 ### Push the dataset configuration
