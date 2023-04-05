@@ -372,17 +372,13 @@ When GA is released these fixes will be removed.
 
 ### Test querying records via PSQL
 
-The configuration is currently set to `plaintext-duplicate` mode on each field.
+The provided CipherStash configuration in the `dataset.yml` file sets all columns to the `plaintext-duplicate` mode.
 
-In this mode, the plaintext field's will be read from and written to.
+In this mode, all data is read from the plaintext fields but writes will save both plaintext and ciphertext.
 
-The encrypted field's will be written to.
+To test that queries are working properly change all columns in the `dataset.yml` to use `encrypted-duplicate` mode.
 
-Update the mode on each field in the `dataset.yml` to `encrypted-duplicate` mode.
-
-In this mode, the plaintext field will be written to.
-
-The encrypted field's will be read from and written to.
+In this mode all data is read from ciphertext fields and writes will save both plaintext and ciphertext.
 
 Push this configration to CipherStash:
 
