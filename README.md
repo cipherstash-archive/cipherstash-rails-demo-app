@@ -392,6 +392,10 @@ In this mode, all data is read from the plaintext fields but writes will save bo
 
 To test that queries are working properly change all columns in the `dataset.yml` to use `encrypted-duplicate` mode.
 
+```yaml
+        mode: encrypted-duplicate
+```
+
 In this mode all data is read from ciphertext fields and writes will save both plaintext and ciphertext.
 
 Push this configration to CipherStash:
