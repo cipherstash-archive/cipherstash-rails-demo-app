@@ -388,9 +388,9 @@ When GA is released these fixes will be removed.
 
 The provided CipherStash configuration in the `dataset.yml` file sets all columns to the `plaintext-duplicate` mode.
 
-In this mode, all data is read from the plaintext fields but writes will save both plaintext and ciphertext.
+In this mode, all data is read from the plaintext fields, but writes will save both plaintext and ciphertext.
 
-To test that queries are working properly change all columns in the `dataset.yml` to use `encrypted-duplicate` mode.
+To test that queries are working properly, change all columns in the `dataset.yml` to use `encrypted-duplicate` mode.
 
 ```yaml
         mode: encrypted-duplicate
