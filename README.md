@@ -59,8 +59,6 @@ Download the binary for your platform:
 - [Linux x86_64 musl](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-unknown-linux-musl)
 - [macOS ARM](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-aarch64-apple-darwin)
 - [macOS x86_64](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-apple-darwin)
-- [Windows x86_64 GNU](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-pc-windows-gnu.exe)
-- [Windows x86_64 MSVC](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-pc-windows-msvc.exe)
 
 If you are a MacOS user, you will need to right click on the file first and select open.
 
