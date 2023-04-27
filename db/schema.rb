@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_06_234321) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_23_021021) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: :cascade do |t|
@@ -37,6 +38,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_06_234321) do
     t.string "medications"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["__allergies_match"], name: "index_patients_on___allergies_match", using: :gin
+    t.index ["__allergies_ore"], name: "index_patients_on___allergies_ore"
+    t.index ["__dob_ore"], name: "index_patients_on___dob_ore"
+    t.index ["__email_match"], name: "index_patients_on___email_match", using: :gin
+    t.index ["__email_ore"], name: "index_patients_on___email_ore"
+    t.index ["__full_name_match"], name: "index_patients_on___full_name_match", using: :gin
+    t.index ["__full_name_ore"], name: "index_patients_on___full_name_ore"
+    t.index ["__medications_match"], name: "index_patients_on___medications_match", using: :gin
+    t.index ["__medications_ore"], name: "index_patients_on___medications_ore"
+    t.index ["__weight_ore"], name: "index_patients_on___weight_ore"
   end
 
 end
