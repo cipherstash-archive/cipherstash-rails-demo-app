@@ -17,7 +17,7 @@ To view the the Demo app with the completed code checkout the branch `completed-
 
 If you're using [asdf](https://asdf-vm.com/), we ship a `.tool-versions` you can use to set these up:
 
-``` bash
+```bash
 asdf install
 ```
 
@@ -86,7 +86,7 @@ You can signup from the CLI:
 stash signup
 ```
 
->Your browser will open to [https://cipherstash.com/signup/stash](https://cipherstash.com/signup/stash) where you can sign up with either your GitHub account, or a standalone email.
+> Your browser will open to [https://cipherstash.com/signup/stash](https://cipherstash.com/signup/stash) where you can sign up with either your GitHub account, or a standalone email.
 
 ### Install the CipherStash database driver
 
@@ -96,7 +96,7 @@ We need to add it to the Rails app, and tell Rails to use it.
 
 Add the `activerecord-cipherstash-pg-adapter` to your Gemfile:
 
-``` ruby
+```ruby
 gem "activerecord-cipherstash-pg-adapter"
 ```
 
@@ -110,7 +110,7 @@ Run `bundle install`.
 
 And update the default adapter settings in `config/database.yml` with `postgres_cipherstash`:
 
-``` yaml
+```yaml
 default: &default
   adapter: postgres_cipherstash
 ```
@@ -119,7 +119,7 @@ default: &default
 
 Make sure `stash` is logged in:
 
-``` bash
+```bash
 stash login
 ```
 
@@ -188,20 +188,28 @@ Note down the client key somewhere safe, like a password vault.
 You will only ever see this credential once.
 This is your personal key, and you should not share it.
 
-Set these as environment variables in the `.envrc` file using the below variable names:
+Set these in your [Rails credentials](https://guides.rubyonrails.org/security.html#custom-credentials) file:
+
+```yaml
+cipherstash:
+  client_id:
+  client_key:
+```
+
+Or set these as environment variables in a `.envrc` file using the below variable names:
 
 ```bash
 export CS_CLIENT_KEY=
 export CS_CLIENT_ID=
 ```
 
-If you are using `direnv` run:
+If you are using direnv run:
 
 ```bash
 direnv allow
 ```
 
-If you're not you can export the variables by running:
+Run:
 
 ```bash
 source .envrc
@@ -215,7 +223,7 @@ This configuration is used by the CipherStash driver to transparently rewrite yo
 
 Our demo rails app has a schema that looks like this:
 
-``` ruby
+```ruby
 class CreatePatients < ActiveRecord::Migration[7.1]
   def change
     create_table :patients do |t|
@@ -278,7 +286,7 @@ end
 
 Apply the migration:
 
-``` bash
+```bash
 rails db:migrate
 ```
 
@@ -286,7 +294,7 @@ The CipherStash driver works by rewriting your app's SQL queries to use the unde
 
 To set up those encrypted columns, generate another Rails migration:
 
-``` bash
+```bash
 rails generate migration AddProtectEncryptedColumnsToPatientsTable
 ```
 
@@ -341,7 +349,7 @@ The `_encrypted` columns are the encrypted values, and the `_match` and `_ore` c
 
 Apply the migration:
 
-``` bash
+```bash
 rails db:migrate
 ```
 
@@ -382,7 +390,7 @@ This is a temporary fix to enable Protect to work.
 
 When GA is released these fixes will be removed.
 
-### Test querying records via PSQL
+### Test querying records via Rails console
 
 The provided CipherStash configuration in the `dataset.yml` file sets all columns to the `plaintext-duplicate` mode.
 
@@ -391,7 +399,7 @@ In this mode, all data is read from the plaintext fields, but writes will save b
 To test that queries are working properly, change all columns in the `dataset.yml` to use `encrypted-duplicate` mode.
 
 ```yaml
-        mode: encrypted-duplicate
+mode: encrypted-duplicate
 ```
 
 In this mode all data is read from ciphertext fields and writes will save both plaintext and ciphertext.
@@ -467,17 +475,99 @@ Use the filters on the side to perform queries.
 
 ![Patient Filters](./public/filters.png)
 
+### Dropping plaintext columns
+
+Once you are sure that everything is working correctly, update the column mode to `encrypted` mode in the `dataset.yml` file.
+
+```yaml
+mode: encrypted
+```
+
+Push this configration to CipherStash:
+
+```bash
+stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+```
+
+In this mode all data is encrypted and plaintext columns are completely ignored.
+
+Once you have verified that everything is working, you can create a migration that drops the original columns.
+
+Generate another Rails migration:
+
+```bash
+rails generate migration DropPlaintextColumnsFromPatientsTable
+```
+
+And add the following code:
+
+```ruby
+class DropPlaintextColumnsFromPatientsTable < ActiveRecord::Migration[7.0]
+  def change
+    remove_column :patients, :full_name
+    remove_column :patients, :email
+    remove_column :patients, :dob
+    remove_column :patients, :weight
+    remove_column :patients, :allergies
+    remove_column :patients, :medications
+  end
+end
+```
+
+> **Warning**
+>
+> **Once you remove the plaintext columns, anything that hasn't been encrypted will be lost.**
+>
+> Before you run the remove column step, it is very important that you:
+>
+> - Create a backup of all your data, in case you need to restore
+> - Ensure all your data is encrypted, by running [the data migration rake task](#encrypt-the-sensitive-data)
+
+Once you're sure that you're ready to drop the plaintext columns, run the migration:
+
+Run:
+
+```bash
+rails db:migrate
+```
+
+In order to be able to drop the plaintext columns and for `encrypted` mode to work, the types of the CipherStash protected columns must be specified in the model.
+
+Add this to your Patient model:
+
+_A quick note, this is in addition to the updates made to the model in the previous steps._
+
+```ruby
+  # Note that the types of CipherStash-protected columns must be specified here in
+  # order to drop the original plaintext columns and for "encrypted" mode to work.
+  attribute :full_name, :string
+  attribute :email, :string
+  attribute :dob, :date
+  attribute :weight, :float
+  attribute :allergies, :string
+  attribute :medications, :string
+  # The rails demo uses ActiveAdmin, which uses Ransack for the filters.
+  # For the dob and weight filters to continue to work, the below types need to be added to the model.
+  ransacker :dob, type: :date
+  ransacker :weight, type: :numeric
+```
+
+Start up the Rails server:
+
+```bash
+rails s
+```
+
+Go to the [patients dashboard](http://localhost:3000/admin/patients).
+
 ### Viewing logs of encryptions and decryptions
 
 The CipherStash driver creates a local log of encryptions and decryptions for a given workspace in `~/.cipherstash/<your workspace id>`.
 
 To see a real time log of cryptography operations, run:
 
-``` bash
+```bash
 tail -F ~/.cipherstash/*/decryptions.log
 ```
 
 The above guide is also published in our [getting started guide](https://docs.cipherstash.com/tutorials/rails-getting-started/index.html).
-
-
-
