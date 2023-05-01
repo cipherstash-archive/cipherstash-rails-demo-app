@@ -4,7 +4,7 @@ tables:
       - name: full_name
         in_place: false
         cast_type: utf8-str
-        mode: plaintext-duplicate
+        mode: encrypted
         indexes:
           - version: 1
             kind: match
@@ -23,7 +23,7 @@ tables:
       - name: email
         in_place: false
         cast_type: utf8-str
-        mode: plaintext-duplicate
+        mode: encrypted
         indexes:
           - version: 1
             kind: match
@@ -42,7 +42,7 @@ tables:
       - name: allergies
         in_place: false
         cast_type: utf8-str
-        mode: plaintext-duplicate
+        mode: encrypted
         indexes:
           - version: 1
             kind: match
@@ -61,7 +61,7 @@ tables:
       - name: medications
         in_place: false
         cast_type: utf8-str
-        mode: plaintext-duplicate
+        mode: encrypted
         indexes:
           - version: 1
             kind: match
@@ -80,14 +80,14 @@ tables:
       - name: dob
         in_place: false
         cast_type: date
-        mode: plaintext-duplicate
+        mode: encrypted
         indexes:
           - version: 1
             kind: ore
       - name: weight
         in_place: false
         cast_type: float
-        mode: plaintext-duplicate
+        mode: encrypted
         indexes:
           - version: 1
             kind: ore

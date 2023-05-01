@@ -29,7 +29,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_23_021021) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
-# Could not dump table "patients" because of following StandardError
-#   Unknown type 'ore_64_8_v1' for column '__full_name_ore'
+  create_table "patients", force: :cascade do |t|
+    t.string "full_name"
+    t.string "email"
+    t.date "dob"
+    t.float "weight"
+    t.string "allergies"
+    t.string "medications"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["__allergies_match"], name: "index_patients_on___allergies_match", using: :gin
+    t.index ["__allergies_ore"], name: "index_patients_on___allergies_ore"
+    t.index ["__dob_ore"], name: "index_patients_on___dob_ore"
+    t.index ["__email_match"], name: "index_patients_on___email_match", using: :gin
+    t.index ["__email_ore"], name: "index_patients_on___email_ore"
+    t.index ["__full_name_match"], name: "index_patients_on___full_name_match", using: :gin
+    t.index ["__full_name_ore"], name: "index_patients_on___full_name_ore"
+    t.index ["__medications_match"], name: "index_patients_on___medications_match", using: :gin
+    t.index ["__medications_ore"], name: "index_patients_on___medications_ore"
+    t.index ["__weight_ore"], name: "index_patients_on___weight_ore"
+  end
 
 end
