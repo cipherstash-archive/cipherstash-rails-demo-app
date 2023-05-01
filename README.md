@@ -406,6 +406,91 @@ Push this configration to CipherStash:
 stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
+_NOTE:_
+
+_The Rails demo app uses Active Admin, which uses a dependency called Ransack for the filters on the side of the dashboard view._
+
+_So these filters continue to work when reading encrypted fields, the below needs to be added the Rails app._
+
+Add this to the `patients.rb` file:
+
+```ruby
+# app/admin/patients.rb
+
+  filter :dob, as: :date_range
+  filter :weight
+
+  filter :full_name_filter,
+  as: :string,
+  label: 'Full name',
+  filters: [:contains, :equals]
+
+  filter :email_filter,
+  as: :string,
+  label: 'Email',
+  filters: [:contains, :equals]
+
+  filter :allergies_filter,
+  as: :string,
+  label: 'Allergies',
+  filters: [:contains, :equals]
+
+  filter :medications_filter,
+  as: :string,
+  label: 'Medications',
+  filters: [:contains, :equals]
+```
+
+Add this to the Patient model `patient.rb`:
+
+```ruby
+
+  def self.full_name_filter_contains(value)
+
+    where("full_name LIKE ?", "#{sanitize_sql_like(value)}")
+  end
+
+  def self.full_name_filter_equals(value)
+
+    where(full_name: "#{sanitize_sql_like(value)}")
+  end
+
+  def self.email_filter_contains(value)
+
+    where("email LIKE ?", "#{sanitize_sql_like(value)}")
+  end
+
+  def self.email_filter_equals(value)
+
+    where(email: "#{sanitize_sql_like(value)}")
+  end
+
+  def self.allergies_filter_contains(value)
+
+    where("allergies LIKE ?", "#{sanitize_sql_like(value)}")
+  end
+
+  def self.allergies_filter_equals(value)
+
+    where(allergies: "#{sanitize_sql_like(value)}")
+  end
+
+  def self.medications_filter_contains(value)
+
+    where("medications LIKE ?", "#{sanitize_sql_like(value)}")
+  end
+
+  def self.medications_filter_equals(value)
+
+    where(medications: "#{sanitize_sql_like(value)}")
+  end
+
+
+  def self.ransackable_scopes(_auth_object = nil)
+    %i(full_name_filter_contains full_name_filter_equals email_filter_contains email_filter_equals allergies_filter_contains allergies_filter_equals medications_filter_contains medications_filter_equals)
+  end
+```
+
 Open your Rails console:
 
 ```bash
