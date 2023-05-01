@@ -379,10 +379,6 @@ Add the below to the Patient model.
 class Patient < ApplicationRecord
   # This will be removed when Protect GA is released.
   self.ignored_columns = %w[wildcardoperatorfix]
-  # This will be removed when Protect GA is released.
-  def self.columns
-    super.reject {|column| column.name.starts_with?('__')}
-  end
 end
 ```
 
