@@ -408,7 +408,7 @@ stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $C
 
 _NOTE:_
 
-_The Rails demo app uses Active Admin, which uses a dependency called Ransack for the filters on the side of the dashboard view._
+_The Rails demo app uses [Active Admin](https://activeadmin.info/), which uses a library called Ransack for the filters on the side of the dashboard view._
 
 _So these filters continue to work when reading encrypted fields, the below needs to be added the Rails app._
 
