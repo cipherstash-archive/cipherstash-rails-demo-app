@@ -382,7 +382,7 @@ class Patient < ApplicationRecord
 end
 ```
 
-This is a temporary fix to enable Protect to work.
+This is a temporary fix to enable CipherStash to work.
 
 When GA is released these fixes will be removed.
 
