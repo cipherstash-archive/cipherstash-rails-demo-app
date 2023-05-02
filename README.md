@@ -446,42 +446,34 @@ Add this to the Patient model `patient.rb`:
 ```ruby
 
   def self.full_name_filter_contains(value)
-
     where("full_name LIKE ?", "#{sanitize_sql_like(value)}")
   end
 
   def self.full_name_filter_equals(value)
-
     where(full_name: "#{sanitize_sql_like(value)}")
   end
 
   def self.email_filter_contains(value)
-
     where("email LIKE ?", "#{sanitize_sql_like(value)}")
   end
 
   def self.email_filter_equals(value)
-
     where(email: "#{sanitize_sql_like(value)}")
   end
 
   def self.allergies_filter_contains(value)
-
     where("allergies LIKE ?", "#{sanitize_sql_like(value)}")
   end
 
   def self.allergies_filter_equals(value)
-
     where(allergies: "#{sanitize_sql_like(value)}")
   end
 
   def self.medications_filter_contains(value)
-
     where("medications LIKE ?", "#{sanitize_sql_like(value)}")
   end
 
   def self.medications_filter_equals(value)
-
     where(medications: "#{sanitize_sql_like(value)}")
   end
 
