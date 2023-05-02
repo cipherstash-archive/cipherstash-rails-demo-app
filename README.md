@@ -209,7 +209,7 @@ If you are using direnv run:
 direnv allow
 ```
 
-Run:
+If you're not you can export the variables by running:
 
 ```bash
 source .envrc
