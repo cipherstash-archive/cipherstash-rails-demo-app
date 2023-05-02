@@ -568,8 +568,6 @@ In this mode all data is encrypted and plaintext columns are completely ignored.
 
 Once you have verified that the app is working correctly, you can create a migration that drops the original columns.
 
-Generate another Rails migration:
-
 ```bash
 rails generate migration DropPlaintextColumnsFromPatientsTable
 ```
@@ -606,7 +604,7 @@ Run:
 rails db:migrate
 ```
 
-In order to be able to drop the plaintext columns and for `encrypted` mode to work, the types of the CipherStash protected columns must be specified in the model.
+In order for the `encrypted` mode to work after the plaintext columns have been dropped, the types of the CipherStash encrypted columns must be specified in the model.
 
 Add this to your Patient model:
 
