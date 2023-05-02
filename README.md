@@ -606,9 +606,7 @@ rails db:migrate
 
 In order for the `encrypted` mode to work after the plaintext columns have been dropped, the types of the CipherStash encrypted columns must be specified in the model.
 
-Add this to your Patient model:
-
-_A quick note, this is in addition to the updates made to the model in the previous steps._
+Uncomment this in your Patient model in `app/models/patient.rb`:
 
 ```ruby
   # Note that the types of CipherStash-protected columns must be specified here in
