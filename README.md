@@ -384,7 +384,7 @@ end
 
 This is a temporary fix to enable CipherStash to work.
 
-When GA is released these fixes will be removed.
+We intend to ship a fix for this in Q2 2023
 
 ### Test querying records via Rails console
 
