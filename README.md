@@ -591,7 +591,7 @@ end
 >
 > **Once you remove the plaintext columns, anything that hasn't been encrypted will be lost.**
 >
-> Before you run the remove column step, it is very important that you:
+> Before you drop plaintext columns in a real-world application, it is very important that you:
 >
 > - Create a backup of all your data, in case you need to restore
 > - Ensure all your data is encrypted, by running [the data migration rake task](#encrypt-the-sensitive-data)
