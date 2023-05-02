@@ -550,11 +550,13 @@ Use the filters on the side to perform queries.
 
 ### Dropping plaintext columns
 
-Once you are sure that everything is working correctly, update the column mode to `encrypted` mode in the `dataset.yml` file.
+Once you are sure that the app is working correctly, update the column mode to `encrypted` mode in the `dataset.yml` file.
 
 ```yaml
 mode: encrypted
 ```
+
+This tells the CipherStash driver to only read and write from the encrypted columns.
 
 Push this configration to CipherStash:
 
@@ -564,7 +566,7 @@ stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $C
 
 In this mode all data is encrypted and plaintext columns are completely ignored.
 
-Once you have verified that everything is working, you can create a migration that drops the original columns.
+Once you have verified that the app is working correctly, you can create a migration that drops the original columns.
 
 Generate another Rails migration:
 
