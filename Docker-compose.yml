@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=CipherStashRailsDemo
+      - POSTGRES_PASSWORD=${CIPHERSTASHRAILSDEMO_DATABASE_PASSWORD}
+      - POSTGRES_DB=CipherStashRailsDemo_production
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
