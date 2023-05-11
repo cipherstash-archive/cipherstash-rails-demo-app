@@ -47,9 +47,26 @@ We now have a running Rails application to use to learn how to configure CipherS
 
 ### Install the CipherStash CLI
 
-The CipherStash CLI is used to manage your account (e.g login) and encryption schema.
+The CipherStash CLI is used to manage your encryption schema.
 
 The encryption schema defines what encrypted indexes exist, and what queries you can perform on those indexes.
+
+#### On macOS
+
+Install via Homebrew:
+
+```bash
+brew install cipherstash/tap/stash
+```
+
+{% note %}
+You will need to grant an exception in System Settings the first time you run the binary.
+
+We will release a fix for this in Q2 2023.
+{% endnote %}
+
+
+#### On Linux
 
 Download the binary for your platform:
 
@@ -57,24 +74,25 @@ Download the binary for your platform:
 - [Linux ARM64 musl](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-aarch64-unknown-linux-musl)
 - [Linux x86_64](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-unknown-linux-gnu)
 - [Linux x86_64 musl](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-unknown-linux-musl)
-- [macOS ARM](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-aarch64-apple-darwin)
-- [macOS x86_64](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-apple-darwin)
 
-If you are a MacOS user, you will need to right click on the file first and select open.
+1. Make the binary executable:
+   ```bash
+   # on x86_64
+   chmod +x $path_to/stash-x86_64-unknown-linux-gnu
 
-This will stop the file from being blocked by Gatekeeper.
+   # on ARM64
+   chmod +x $path_to/stash-aarch64-unknown-linux-gnu
+   ```
+2. Rename the binary:
+   ```bash
+   # on x86_64
+   mv stash-x86_64-unknown-linux-gnu stash
 
-This is a temporary step until we can issue signed binaries.
+   # on ARM64
+   mv stash-aarch64-unknown-linux-gnu stash
+   ```
+3. Place the binary on your `$PATH`, so you can run it.
 
-1. Update permissions to enable the file to be executed.
-
-```bash
-chmod +x /<path to downloaded file>/stash-xxx-xxxx
-```
-
-2. Rename the file to `stash`.
-
-3. Place the location of the binary on your `$PATH`, so you can run it.
 
 ### Get a CipherStash account and workspace
 
