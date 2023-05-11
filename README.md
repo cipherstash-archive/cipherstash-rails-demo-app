@@ -59,12 +59,11 @@ Install via Homebrew:
 brew install cipherstash/tap/stash
 ```
 
-{% note %}
-You will need to grant an exception in System Settings the first time you run the binary.
-
-We will release a fix for this in Q2 2023.
-{% endnote %}
-
+> **Note**
+> 
+> You will need to grant an exception in System Settings the first time you run the binary.
+> 
+>We will release a fix for this in Q2 2023.
 
 #### On Linux
 
