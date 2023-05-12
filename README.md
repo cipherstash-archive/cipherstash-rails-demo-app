@@ -269,7 +269,7 @@ This configuration file defines two types of encrypted indexes for the columns w
 Now we push this configuration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 ### Add and apply migrations
@@ -420,7 +420,7 @@ In this mode all data is read from ciphertext fields and writes will save both p
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 _NOTE:_
@@ -578,7 +578,7 @@ This tells the CipherStash driver to only read and write from the encrypted colu
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 In this mode all data is encrypted and plaintext columns are completely ignored.
