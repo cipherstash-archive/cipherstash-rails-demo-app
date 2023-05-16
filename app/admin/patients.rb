@@ -26,35 +26,10 @@ ActiveAdmin.register Patient do
     actions
   end
 
-  ### COMMENT OUT THE BELOW WHEN IN ENCRYPTED DUPLICATE OR ENCRYPTED MODE
   filter :full_name
   filter :email
-  filter :dob
+  filter :dob, as: :date_range
   filter :weight
   filter :allergies
   filter :medications
-
-  ### UNCOMMENT THE BELOW WHEN IN ENCRYPTED DUPLICATE OR ENCRYPTED MODE
-  # filter :dob, as: :date_range
-  # filter :weight
-
-  # filter :full_name_filter,
-  # as: :string,
-  # label: 'Full name',
-  # filters: [:contains, :equals]
-
-  # filter :email_filter,
-  # as: :string,
-  # label: 'Email',
-  # filters: [:contains, :equals]
-
-  # filter :allergies_filter,
-  # as: :string,
-  # label: 'Allergies',
-  # filters: [:contains, :equals]
-
-  # filter :medications_filter,
-  # as: :string,
-  # label: 'Medications',
-  # filters: [:contains, :equals]
 end
