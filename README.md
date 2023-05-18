@@ -60,10 +60,10 @@ brew install cipherstash/tap/stash
 ```
 
 > **Note**
-> 
+>
 > You will need to grant an exception in System Settings the first time you run the binary.
-> 
->We will release a fix for this in Q2 2023.
+>
+> We will release a fix for this in Q2 2023.
 
 #### On Linux
 
@@ -75,6 +75,7 @@ Download the binary for your platform:
 - [Linux x86_64 musl](https://github.com/cipherstash/cli-releases/releases/latest/download/stash-x86_64-unknown-linux-musl)
 
 1. Make the binary executable:
+
    ```bash
    # on x86_64
    chmod +x $path_to/stash-x86_64-unknown-linux-gnu
@@ -82,7 +83,9 @@ Download the binary for your platform:
    # on ARM64
    chmod +x $path_to/stash-aarch64-unknown-linux-gnu
    ```
+
 2. Rename the binary:
+
    ```bash
    # on x86_64
    mv stash-x86_64-unknown-linux-gnu stash
@@ -90,8 +93,8 @@ Download the binary for your platform:
    # on ARM64
    mv stash-aarch64-unknown-linux-gnu stash
    ```
-3. Place the binary on your `$PATH`, so you can run it.
 
+3. Place the binary on your `$PATH`, so you can run it.
 
 ### Get a CipherStash account and workspace
 
@@ -394,7 +397,6 @@ Add the below to the Patient model.
 
 ```ruby
 class Patient < ApplicationRecord
-  # This will be removed when Protect GA is released.
   self.ignored_columns = %w[wildcardoperatorfix]
 end
 ```
@@ -421,83 +423,6 @@ Push this configration to CipherStash:
 
 ```bash
 stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
-```
-
-_NOTE:_
-
-_The Rails demo app uses [Active Admin](https://activeadmin.info/), which uses a library called Ransack for the filters on the side of the dashboard view._
-
-_So the filters continue to work when reading encrypted fields, we need to update the Active Admin filters._
-
-Uncomment the below in the `patients.rb` file:
-
-```ruby
-# app/admin/patients.rb
-
-  filter :dob, as: :date_range
-  filter :weight
-
-  filter :full_name_filter,
-  as: :string,
-  label: 'Full name',
-  filters: [:contains, :equals]
-
-  filter :email_filter,
-  as: :string,
-  label: 'Email',
-  filters: [:contains, :equals]
-
-  filter :allergies_filter,
-  as: :string,
-  label: 'Allergies',
-  filters: [:contains, :equals]
-
-  filter :medications_filter,
-  as: :string,
-  label: 'Medications',
-  filters: [:contains, :equals]
-```
-
-Uncomment the below in the Patient model `patient.rb`:
-
-```ruby
-
-  def self.full_name_filter_contains(value)
-    where("full_name LIKE ?", "#{sanitize_sql_like(value)}")
-  end
-
-  def self.full_name_filter_equals(value)
-    where(full_name: "#{sanitize_sql_like(value)}")
-  end
-
-  def self.email_filter_contains(value)
-    where("email LIKE ?", "#{sanitize_sql_like(value)}")
-  end
-
-  def self.email_filter_equals(value)
-    where(email: "#{sanitize_sql_like(value)}")
-  end
-
-  def self.allergies_filter_contains(value)
-    where("allergies LIKE ?", "#{sanitize_sql_like(value)}")
-  end
-
-  def self.allergies_filter_equals(value)
-    where(allergies: "#{sanitize_sql_like(value)}")
-  end
-
-  def self.medications_filter_contains(value)
-    where("medications LIKE ?", "#{sanitize_sql_like(value)}")
-  end
-
-  def self.medications_filter_equals(value)
-    where(medications: "#{sanitize_sql_like(value)}")
-  end
-
-
-  def self.ransackable_scopes(_auth_object = nil)
-    %i(full_name_filter_contains full_name_filter_equals email_filter_contains email_filter_equals allergies_filter_contains allergies_filter_equals medications_filter_contains medications_filter_equals)
-  end
 ```
 
 Open your Rails console:
