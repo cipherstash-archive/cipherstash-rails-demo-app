@@ -377,16 +377,8 @@ rails db:migrate
 
 Now we have the necessary database structure in place, it's time to encrypt your data.
 
-Using bash:
-
 ```bash
-rails cipherstash:migrate[Patient]
-```
-
-Using zsh:
-
-```zsh
-rails cipherstash:migrate\[Patient\]
+rails 'cipherstash:migrate[Patient]'
 ```
 
 This will pull the unencrypted data, encrypt it, and write it back to the new columns.
