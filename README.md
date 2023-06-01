@@ -272,7 +272,7 @@ This configuration file defines two types of encrypted indexes for the columns w
 Now we push this configuration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 ### Add and apply migrations
