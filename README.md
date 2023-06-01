@@ -414,7 +414,7 @@ In this mode all data is read from ciphertext fields and writes will save both p
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 Open your Rails console:
@@ -495,7 +495,7 @@ This tells the CipherStash driver to only read and write from the encrypted colu
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 In this mode all data is encrypted and plaintext columns are completely ignored.
