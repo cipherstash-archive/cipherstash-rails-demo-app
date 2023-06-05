@@ -61,9 +61,7 @@ brew install cipherstash/tap/stash
 
 > **Note**
 >
-> You will need to grant an exception in System Settings the first time you run the binary.
->
-> We will release a fix for this in Q2 2023.
+> If macOS asks you whether you are sure you want to open "stash", please select "Open".
 
 #### On Linux
 
@@ -414,7 +412,7 @@ In this mode all data is read from ciphertext fields and writes will save both p
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 Open your Rails console:
@@ -495,7 +493,7 @@ This tells the CipherStash driver to only read and write from the encrypted colu
 Push this configration to CipherStash:
 
 ```bash
-stash upload-config --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
+stash datasets config upload --file dataset.yml --client-id $CS_CLIENT_ID --client-key $CS_CLIENT_KEY
 ```
 
 In this mode all data is encrypted and plaintext columns are completely ignored.
