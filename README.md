@@ -206,28 +206,20 @@ Note down the client key somewhere safe, like a password vault.
 You will only ever see this credential once.
 This is your personal key, and you should not share it.
 
-Set these in your [Rails credentials](https://guides.rubyonrails.org/security.html#custom-credentials) file:
-
-```yaml
-cipherstash:
-  client_id:
-  client_key:
-```
-
-Or set these as environment variables in a `.envrc` file using the below variable names:
+Set these as environment variables in a `.envrc` file using the below variable names:
 
 ```bash
 export CS_CLIENT_KEY=
 export CS_CLIENT_ID=
 ```
 
-If you are using direnv run:
+If you are using [direnv](https://direnv.net/) run:
 
 ```bash
 direnv allow
 ```
 
-If you're not you can export the variables by running:
+If you're not using direnv, source these variables by running:
 
 ```bash
 source .envrc
