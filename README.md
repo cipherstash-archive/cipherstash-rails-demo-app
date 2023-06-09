@@ -118,12 +118,6 @@ Add the `activerecord-cipherstash-pg-adapter` to your Gemfile:
 gem "activerecord-cipherstash-pg-adapter"
 ```
 
-Remove (or comment out as below) the `pg` gem from your Gemfile.
-
-```
-# gem "pg", "~> 1.1"
-```
-
 Run `bundle install`.
 
 And update the default adapter settings in `config/database.yml` with `postgres_cipherstash`:
