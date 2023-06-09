@@ -377,10 +377,6 @@ class Patient < ApplicationRecord
 end
 ```
 
-This is a temporary fix to enable CipherStash to work.
-
-We intend to ship a fix for this in Q2 2023
-
 ### Test querying records via Rails console
 
 The provided CipherStash configuration in the `dataset.yml` file sets all columns to the `plaintext-duplicate` mode.
